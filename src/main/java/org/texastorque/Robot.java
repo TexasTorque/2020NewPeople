@@ -25,6 +25,8 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  
+  private DriveBase driveBase = DriveBase.getInstance();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -35,7 +37,6 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    DriveBase driveBase = new DriveBase();
   }
 
   /**
@@ -73,6 +74,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    driveBase.run();
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
