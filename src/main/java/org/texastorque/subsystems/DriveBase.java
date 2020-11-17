@@ -1,8 +1,8 @@
 package org.texastorque.subsystems;
 
-import org.texastorque.torquelib.component.TorqueSparkMax;
 import org.texastorque.torquelib.util.GenericController;
 
+import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBase {
@@ -17,23 +17,27 @@ public class DriveBase {
     private double rightSpeed = 0.0;
 
     GenericController controller = new GenericController(0, 0.1);
-    TorqueSparkMax left = new TorqueSparkMax(port_left_1);
-    TorqueSparkMax right = new TorqueSparkMax(port_right_1);
+    PWMSparkMax left_1 = new PWMSparkMax(port_left_1);
+    PWMSparkMax left_2 = new PWMSparkMax(port_left_2);
+    PWMSparkMax left_3 = new PWMSparkMax(port_left_3);
+    PWMSparkMax right_1 = new PWMSparkMax(port_right_1);
+    PWMSparkMax right_2 = new PWMSparkMax(port_right_2);
+    PWMSparkMax right_3 = new PWMSparkMax(port_right_3);
     
     public DriveBase(){
         SmartDashboard.putString("test", "Instantiated Drivebase");        
-        left.addFollower(port_left_2);
-        left.addFollower(port_left_3);
-        right.addFollower(port_right_2);
-        right.addFollower(port_right_3);
     }
 
     public void run() {
         double leftRight = controller.getRightXAxis();
         leftSpeed =.2*(controller.getLeftYAxis() - 0.4 * Math.pow(leftRight, 4) * Math.signum(leftRight));
         rightSpeed = .2*(-controller.getLeftYAxis() - 0.4 * Math.pow(leftRight, 4) * Math.signum(leftRight));
-        left.set(leftSpeed);
-        right.set(rightSpeed);
+        left_1.set(leftSpeed);
+        left_2.set(leftSpeed);
+        left_3.set(leftSpeed);
+        right_1.set(rightSpeed);
+        right_2.set(rightSpeed);
+        right_3.set(rightSpeed);
     }
 
     public static DriveBase getInstance(){
